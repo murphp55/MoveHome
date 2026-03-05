@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<resources>
+    <string id="AppName">MoveHome</string>
+    <string id="StatusIdle">Idle</string>
+    <string id="StatusListening">Listening...</string>
+    <string id="StatusSending">Sending...</string>
+    <string id="LabelGesture">Gesture:</string>
+
+    <!-- Edit HA_BASE_URL and WEBHOOK_ID to match your Home Assistant instance -->
+    <string id="HA_BASE_URL">http://192.168.1.100:8123</string>
+    <string id="WEBHOOK_ID">movehome_garmin</string>
+    <string id="DEVICE_ID">garmin_watch</string>
+</resources>
