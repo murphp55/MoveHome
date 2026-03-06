@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- HIGH_SAMPLING_RATE_SENSORS required for >200Hz; 50Hz is fine without it -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- FOREGROUND_SERVICE_HEALTH covers sensor/motion use on Android 14+ -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
 
     <application
         android:allowBackup="true"
         android:label="MoveHome"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
+        <!-- Original app UI — DELETABLE once tile + widget are primary -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -17,6 +20,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Core capture pipeline — permanent, survives app backgrounding -->
+        <service
+            android:name=".service.MoveHomeForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="health" />
+
+        <!-- Quick Settings tile: swipe-down shade → tap to toggle, no app open needed -->
+        <service
+            android:name=".tile.MoveHomeTileService"
+            android:exported="true"
+            android:label="MoveHome"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <!-- Home screen widget: tap to toggle, shows last gesture -->
+        <receiver
+            android:name=".widget.MoveHomeWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
 
     </application>
 

@@ -23,7 +23,6 @@ class MainActivity : ComponentActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (viewModel.accelerometer.let { false } ) return super.onKeyDown(keyCode, event)
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
             viewModel.onVolumeDown()
             return true

@@ -22,6 +22,18 @@ class MoveHomeApp extends Application.AppBase {
             Rez.Strings.DEVICE_ID
         );
         _sensor = new GarminSensorManager(_recognizer, method(:onGesture));
+
+        // Schedule background service to run every 5 minutes
+        Background.registerForTemporalEvent(new Time.Duration(5 * 60));
+    }
+
+    // Exposed for MoveHomeGlanceView to read without owning capture state
+    function isCapturing() as Boolean {
+        return _capturing;
+    }
+
+    function getBackgroundServiceDelegate() as System.ServiceDelegate {
+        return new MoveHomeBackgroundService();
     }
 
     function onStop(state as Dictionary?) as Void {

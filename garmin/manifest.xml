@@ -28,5 +28,15 @@
             <iq:language id="eng"/>
         </iq:languages>
 
+        <!-- Glance: visible by swiping up from the watch face, one tap launches app -->
+        <iq:glance name="MoveHomeGlance">
+            <iq:dataField name="MoveHomeApp"/>
+        </iq:glance>
+
+        <!-- Background service: runs on a schedule when the app is closed -->
+        <iq:background>
+            <iq:schedule type="temporal"/>
+        </iq:background>
+
     </iq:application>
 </iq:manifest>
