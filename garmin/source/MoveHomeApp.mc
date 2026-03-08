@@ -1,5 +1,7 @@
 import Toybox.Application;
+import Toybox.Background;
 import Toybox.Lang;
+import Toybox.Time;
 import Toybox.WatchUi;
 
 class MoveHomeApp extends Application.AppBase {
